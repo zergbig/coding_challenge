@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <string.h>
+#include <unistd.h>
 
 #define BOOL char 
 #define FALSE 0
@@ -108,12 +109,13 @@ void waitForThreadsToFinish()
 	free(g_threads);
 }
 
-void main()
+int main(int argc, char** argv)
 {
 	createAndStartThreads(3);
 	waitForThreadsToFinish();
 	
 	printf("%sEnd of Data\n", g_buffer);
 	free(g_buffer);
+	return 0;
 }
 
