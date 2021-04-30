@@ -14,6 +14,6 @@ The program, factorial, computes the factorial of an integer passed in on the co
 
 How many things can you find wrong and fix in this program?
 
-To build your code change to the build directory (~/environment/coding_challenge/factorial/build/) and run 'make' in the terminal below. 
+To build your code change to the build directory (~/environment/coding_challenge/factorial/build/) and run __make__.
 
-To run the executable can be run from the build directory by typing __./factorial \<some integer\>__.
+The executable can be run from the build directory by typing __./factorial \<some integer\>__.
