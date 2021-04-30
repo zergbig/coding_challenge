@@ -2,12 +2,11 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <string.h>
+#include <unistd.h>
 
 #define BOOL char 
 #define FALSE 0
 #define TRUE 1
-
-#define DATA_FILE "./data.txt"
 
 #define BUFFER_SIZE 10000
 char* g_buffer = NULL;
@@ -16,27 +15,27 @@ pthread_t* g_threads = NULL;
 int g_totalThreads = 0;
 int g_numRunningThreads = 0;
 
-void logMsg(char* data, unsigned int len)
-{
-	FILE* fh = fopen(DATA_FILE, "w");
-	if (NULL != fh)
-	{
-		fwrite(data, sizeof(char), len, fh);
-		fclose(fh);
-		fh = NULL;
-	}
-}
+//TODO: Remove this, pthread_mutex_t buffer_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void initBuffer()
 {
+	//TODO: Remove this, pthread_mutex_lock(&buffer_mutex);
 	if (FALSE == g_bufferInitialized)
 	{
 		g_bufferInitialized = TRUE;
-		char* initMsg = "Initializing Buffer\n";
-		logMsg(initMsg, strlen(initMsg));
+		char* initMsg = "Initializing Buffer";
+		//TODO: Remove this, printf("%s\n", initMsg);
+		FILE* fh = fopen("./buffer.log", "w");
+		if (NULL != fh)
+		{
+			fwrite(initMsg, sizeof(char), strlen(initMsg), fh);
+			fclose(fh);
+			fh = NULL;
+		}
 		g_buffer = (char*)malloc(BUFFER_SIZE);
 		strcpy(g_buffer, "Start of Data\n");
 	}
+	//TODO: Remove this, pthread_mutex_unlock(&buffer_mutex);
 }
 
 void * threadFunc(void* arg)
@@ -50,18 +49,21 @@ void * threadFunc(void* arg)
 	
 	sprintf(msg, "Thread %ld\n", threadId);
 	msgLen = strlen(msg);
+	//TODO: Remove this, printf("Starting %s", msg);
 	initBuffer();
 	myPortionOfBuffer = BUFFER_SIZE / g_totalThreads;
 	
 	while (i < 5 && (bytesWritten + msgLen) < myPortionOfBuffer)
 	{
+		//sleep(1);
+		//TODO: Remove this, pthread_mutex_lock(&buffer_mutex);
 		strcat(g_buffer, msg);
+		//TODO: Remove this, pthread_mutex_unlock(&buffer_mutex);
 		bytesWritten += msgLen;
 		i++;
 	}
 	
 	g_numRunningThreads--;
-	return NULL;
 }
 
 void createAndStartThread(int threadNum)
@@ -116,14 +118,13 @@ void waitForThreadsToFinish()
 	free(g_threads);
 }
 
-void main()
+int main(int argc, char** argv)
 {
-	unlink(DATA_FILE);
 	createAndStartThreads(3);
 	waitForThreadsToFinish();
 	
 	printf("%sEnd of Data\n", g_buffer);
-	logMsg(g_buffer, strlen(g_buffer));
 	free(g_buffer);
+	return 0;
 }
 
