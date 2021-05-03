@@ -10,10 +10,14 @@ and is represented by the notation N!
 For example, 3! is computed as:
 3 * 2 * 1 = 6
 
-The program, factorial, computes the factorial of an integer passed in on the command line and prints the result to the terminal. Unfortunately there is a bug in the program and the factorial is not correctly computed. For example,
+The program, factorial, computes the factorial of an integer passed in on the 
+command line and prints the result to the terminal. Unfortunately there is a 
+bug in the program and the factorial is not correctly computed. For example,
 
 How many things can you find wrong and fix in this program?
 
-To build your code change to the build directory (~/environment/coding_challenge/factorial/build/) and run __make__.
+To build your code change to the build directory 
+(~/environment/coding_challenge/factorial/build/) and run __make__.
 
-The executable can be run from the build directory by typing __./factorial \<some integer\>__.
+The executable can be run from the build directory by typing 
+__./factorial \<some integer\>__.
