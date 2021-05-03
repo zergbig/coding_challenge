@@ -10,4 +10,7 @@
 
 Welcome to the Coding Chalenge.
 
-There are several challenges, each in its own directory. Each challenge has a README that explains what the challenge is and how build it. Make sure to keep good notes on what you did to complete each challenge so that we can talk about it later.
+There are several challenges, each in its own directory. Each challenge has a 
+README that explains what the challenge is and how build it. Make sure to 
+keep good notes on what you did to complete each challenge so that we can talk 
+about it later.
