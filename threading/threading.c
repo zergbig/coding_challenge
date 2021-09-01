@@ -15,16 +15,12 @@ pthread_t* g_threads = NULL;
 int g_totalThreads = 0;
 int g_numRunningThreads = 0;
 
-//TODO: Remove this, pthread_mutex_t buffer_mutex = PTHREAD_MUTEX_INITIALIZER;
-
 void initBuffer()
 {
-	//TODO: Remove this, pthread_mutex_lock(&buffer_mutex);
 	if (FALSE == g_bufferInitialized)
 	{
 		g_bufferInitialized = TRUE;
 		char* initMsg = "Initializing Buffer";
-		//TODO: Remove this, printf("%s\n", initMsg);
 		FILE* fh = fopen("./buffer.log", "w");
 		if (NULL != fh)
 		{
@@ -35,7 +31,6 @@ void initBuffer()
 		g_buffer = (char*)malloc(BUFFER_SIZE);
 		strcpy(g_buffer, "Start of Data\n");
 	}
-	//TODO: Remove this, pthread_mutex_unlock(&buffer_mutex);
 }
 
 void * threadFunc(void* arg)
@@ -49,16 +44,12 @@ void * threadFunc(void* arg)
 	
 	sprintf(msg, "Thread %ld\n", threadId);
 	msgLen = strlen(msg);
-	//TODO: Remove this, printf("Starting %s", msg);
 	initBuffer();
 	myPortionOfBuffer = BUFFER_SIZE / g_totalThreads;
 	
 	while (i < 5 && (bytesWritten + msgLen) < myPortionOfBuffer)
 	{
-		//sleep(1);
-		//TODO: Remove this, pthread_mutex_lock(&buffer_mutex);
 		strcat(g_buffer, msg);
-		//TODO: Remove this, pthread_mutex_unlock(&buffer_mutex);
 		bytesWritten += msgLen;
 		i++;
 	}
